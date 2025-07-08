@@ -1,12 +1,10 @@
-// src/components/MainContent.jsx
-import React, { useEffect } from 'react'; // useNavigate kaldırıldı
-import { Link } from 'react-router-dom'; // useNavigate kaldırıldı
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import TopicCard from './TopicCard';
-import { allDynamicContent } from '../data/contentData'; // Verileri buradan import ediyoruz
+import { allDynamicContent } from '../data/contentData';
 
 const MainContent = () => {
-  // useNavigate kaldırıldığı için bu satır da kaldırıldı.
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Verileri kategoriye göre filtreleyelim
   const popularTopics = allDynamicContent.filter(item => item.category === 'popular-topics');
@@ -14,28 +12,29 @@ const MainContent = () => {
   const exploringPlatformItems = allDynamicContent.filter(item => item.category === 'exploring-platform');
   const basicAssistanceItems = allDynamicContent.filter(item => item.category === 'basic-assistance');
 
-  // Bu useEffect bloğu ve ilgili buton bu dosyadan kaldırıldı.
-  // Çünkü buton artık MainLayout'ta yer alıyor ve işlevselliği orada tanımlanacak.
-  // Eğer bu MainContent'e özgü başka bir useEffect yoksa komple kaldırılabilir.
-  // Şu anlık sadece boş bırakıyorum, içeriğini temizleyin:
-  useEffect(() => {
-    // Burada daha önce bulunan buton event listener kodu kaldırıldı
-  }, []);
+  // "Bize Ulaşın" butonuna tıklama işlevi
+  const handleContactClick = () => {
+    navigate('/support');
+  };
 
   return (
     <div className="layout-content-container flex flex-col flex-1 p-8 bg-gray-50">
-
+      
       {/* 1. Getting Started Bölümü */}
       <div className="flex flex-wrap justify-between gap-3 p-4">
         <p className="text-[#121517] tracking-light text-[32px] font-bold leading-tight min-w-72">Getting Started</p>
       </div>
-      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Welcome to Tech Solutions</h3>
+
+      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Welcome to Tech Solutions
+      </h3>
       <p className="text-[#121517] text-base font-normal leading-normal pb-3 pt-1 px-4">
         Welcome to Tech Solutions! We're thrilled to have you join our community. This section will guide you through the initial steps to get started with our platform.
         Whether you're setting up your account, exploring our features, or need assistance with basic navigation, you'll find the resources you need here. Let's begin your
         journey with Tech Solutions!
       </p>
-      <br/>
+
+      <br />
 
       {/* 2. Popüler Konular Bölümü */}
       <h2 className="text-xl font-bold text-[#121517] mb-6 px-4">Popüler Konular</h2>
@@ -51,14 +50,36 @@ const MainContent = () => {
         ))}
       </div>
 
-      {/* "Daha fazla yardıma mı ihtiyacınız var?" Bölümü BURADAN KALDIRILDI. */}
-      {/* Bu kısım artık MainLayout.jsx içerisinde yer almaktadır. */}
+      {/* "Daha fazla yardıma mı ihtiyacınız var?" Bölümü */}
+      <div className="w-full flex justify-center py-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-[#121517] mb-5">
+            Daha fazla yardıma mı ihtiyacınız var?
+          </h2>
+          <button
+            onClick={handleContactClick}
+            className="
+              bg-[#121517] text-white
+              py-3 px-6
+              rounded-lg
+              text-base font-medium
+              cursor-pointer
+              border-none
+              transition-colors duration-300
+              hover:bg-gray-700
+            "
+          >
+            Bize Ulaşın
+          </button>
+        </div>
+      </div>
 
-      <br/> {/* Bu bölümden sonra biraz boşluk bırakmak için */}
-
+      <br />
 
       {/* 3. Account Setup Bölümü */}
-      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Account Setup</h3>
+      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Account Setup
+      </h3>
       {accountSetupItems.map((item) => (
         <Link to={`/${item.id}`} key={item.id} className="block">
           <div className="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2 mb-2 rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200">
@@ -72,10 +93,13 @@ const MainContent = () => {
           </div>
         </Link>
       ))}
-      <br/>
 
-      {/* Exploring the Platform Bölümü */}
-      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Exploring the Platform</h3>
+      <br />
+
+      {/* 4. Exploring the Platform Bölümü */}
+      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Exploring the Platform
+      </h3>
       {exploringPlatformItems.map((item) => (
         <Link to={`/${item.id}`} key={item.id} className="block">
           <div className="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2 mb-2 rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200">
@@ -89,10 +113,13 @@ const MainContent = () => {
           </div>
         </Link>
       ))}
-      <br/>
 
-      {/* Basic Assistance Bölümü */}
-      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Basic Assistance</h3>
+      <br />
+
+      {/* 5. Basic Assistance Bölümü */}
+      <h3 className="text-[#121517] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Basic Assistance
+      </h3>
       {basicAssistanceItems.map((item) => (
         <Link to={`/${item.id}`} key={item.id} className="block">
           <div className="flex items-center gap-4 bg-white px-4 min-h-[72px] py-2 mb-2 rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200">
@@ -106,8 +133,8 @@ const MainContent = () => {
           </div>
         </Link>
       ))}
-      <br/>
 
+      <br />
     </div>
   );
 };
