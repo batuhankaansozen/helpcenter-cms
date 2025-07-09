@@ -1,7 +1,324 @@
-import React, { useState } from 'react';
+// src/components/Sidebar.jsx
+import React, { useState } from "react";
+
+// Heroicons'tan import etmek yerine doğrudan SVG'leri kullanacağız.
+// Ancak daha düzenli olması için ikonları ayrı bir yerden tanımlayabiliriz.
+// Örnek bazı Heroicons SVG'leri (Outline versiyonlar):
+const HomeIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m2.25 12 8.954-8.955c.44-.439 1.154-.439 1.594 0L21.75 12m-18.75 6.75v-2.25c0-1.036.84-1.875 1.875-1.875h1.875M4.5 18.75V10.5m11.25 7.5v-6m-9 6H3.375c-.621 0-1.125-.504-1.125-1.125V11.25c0-2.584 1.807-4.724 4.294-5.176 2.863-.464 5.667-.626 8.452-.626h.085c2.986 0 5.847.157 8.709.626 2.487.452 4.294 2.592 4.294 5.176v5.625c0 .621-.504 1.125-1.125 1.125H16.5m-11.25 0h11.25"
+    />
+  </svg>
+);
+
+const UserCircleIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+    />
+  </svg>
+);
+
+const KeyIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.25L4.5 19.5l-.621-.621a15.64 15.64 0 0 1 4.166-2.442V17.25a2.25 2.25 0 0 0 2.25 2.25h2.25m-10.5-6H2.25V7.5L9 2.25 12.75 5.25m-8.25 6v7.5h7.5"
+    />
+  </svg>
+);
+
+const PlusCircleIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    />
+  </svg>
+);
+
+const UserPlusIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 12 21.75c-2.305 0-4.47-.612-6.47-1.687Z"
+    />
+  </svg>
+);
+
+const RectangleStackIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15.75M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15.75"
+    />
+  </svg>
+);
+
+const Squares2X2Icon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+    />
+  </svg>
+);
+
+const NewspaperIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 7.5v10.5m-7.5-6h15M12 7.5L8.25 3.75M12 7.5l3.75-3.75M12 7.5V1.5"
+    />
+  </svg>
+);
+
+const MagnifyingGlassIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+    />
+  </svg>
+);
+
+const TagIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .59.237 1.156.659 1.575l6.802 6.802c.708.708 1.849.708 2.557 0l6.802-6.802c.423-.423.66-1.033.66-1.655V5.25A2.25 2.25 0 0 0 18.75 3H14.432M10.5 8.25h.008v.008H10.5V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+    />
+  </svg>
+);
+
+const UsersIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M18 18.75c-.276 0-.543-.055-.798-.164A2.175 2.175 0 0 0 15 17.25c0-1.03.71-1.92 1.732-2.316 1.022-.396 2.165-.333 3.114.124.95.457 1.458 1.099 1.458 1.742 0 1.656-5.462 2.1-7.5 2.1-.375 0-.75-.027-1.125-.08L12 18.75c-3.35 0-6-.782-6-2.1 0-1.656 5.462-2.1 7.5-2.1.375 0 .75.027 1.125.08A2.175 2.175 0 0 0 18 17.25c0 1.03-.71 1.92-1.732 2.316C15.246 19.98 14.103 20.043 13.153 19.586a1.125 1.125 0 0 1-.603.042Zm-2.75-8.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5ZM7.75 10.5a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+    />
+  </svg>
+);
+
+const ExclamationCircleIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+    />
+  </svg>
+);
+
+const BellAlertIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9.143 17.143A6.002 6.002 0 0 1 12 15.75c2.109 0 4.062.969 5.097 2.533.16.255.333.50.521.736m-9.143-1.077a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5ZM12 18.75c-7.242 0-12 5.143-12 7.17 0 .684.276 1.34.764 1.828l1.542 1.543a.6.6 0 0 0 .971-.246C3.795 24.545 7.07 22.5 12 22.5c4.93 0 8.205 2.046 8.723 2.76.07.1.14.195.205.286a.6.6 0 0 0 .97-.246l1.543-1.543c.488-.488.764-1.144.764-1.828 0-2.027-4.758-7.17-12-7.17Z"
+    />
+  </svg>
+);
+
+const LanguageIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m10.5 21 5.25-11.25L21 21m-9-6h5.25M7.5 7.5V4.5m0 3A.75.75 0 0 1 8.25 6h.75m-2.25 3H5.25c-.621 0-1.125-.504-1.125-1.125V4.875c0-.621.504-1.125 1.125-1.125h3.879m-2.25 3h.008v.008H7.5Z"
+    />
+  </svg>
+);
+
+const RadioIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M19.114 5.669a8.902 8.902 0 0 1 1.705 3.334m-1.705-3.334c.125-.09.25-.177.375-.264m-1.33 3.603C17.653 1.39 12.983.5 8.25 3.526m7.453 10.334c-.16.32-.34.628-.54.922m-7.652-1.928a8.902 8.902 0 0 0 1.705 3.334M9.176 16.177c-.16.32-.34.628-.54.922m12.38-6.143c-.636 1.838-2.158 3.36-3.996 4.004m-10.127-6.07a4.486 4.486 0 0 1-1.872.632M6 12.553c-1.18-.707-2.112-1.81-2.732-3.14M4 10.74V8.75c0-.621.504-1.125 1.125-1.125h.209c.316 0 .623.075.897.214M4.75 19.125h.008v.008H4.75V19.125ZM6 12.553a11.2 11.2 0 0 0-1.077 1.618C3.557 15.36 3 17.001 3 18.75c0 1.154.223 2.247.622 3.25M19.125 4.75h.008v.008H19.125V4.75ZM12 12.75a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"
+    />
+  </svg>
+);
+
+const TvIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 20.25h12m-7.5-3v3m-3-3v3m-1.5-13.5H20.25c.414 0 .75.336.75.75v11.25c0 .414-.336.75-.75.75H3.75a.75.75 0 0 1-.75-.75V6.75c0-.414.336-.75.75-.75Z"
+    />
+  </svg>
+);
+
+const PlayCircleIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.97 12.97a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0L8.22 14.03a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0l3.75 3.75Z"
+    />
+  </svg>
+);
+
+const ChevronLeftIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+)
+
+const ChevronRightIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+)
 
 // SidebarDropdownItem bileşeni (Drop-down menü başlıkları için)
-const SidebarDropdownItem = ({ icon, title, children, isActive, onItemClick, isSidebarOpen }) => {
+const SidebarDropdownItem = ({
+  icon,
+  title,
+  children,
+  isActive,
+  onItemClick,
+  isSidebarOpen,
+}) => {
   const [isOpen, setIsOpen] = useState(isActive || false);
 
   const toggleDropdown = () => {
@@ -17,14 +334,19 @@ const SidebarDropdownItem = ({ icon, title, children, isActive, onItemClick, isS
     rounded-xl
     transition-colors duration-200
     cursor-pointer
-    ${isActive ? 'bg-[#f1f3f4]' : 'hover:bg-gray-200'}
+    ${isActive ? "bg-[#f1f3f4]" : "hover:bg-gray-200"}
   `;
 
   return (
     <div className="flex flex-col">
       <div className={itemClasses} onClick={toggleDropdown}>
         <div className="flex items-center gap-3">
-          <div className="text-[#121517]">{icon}</div>
+          {/* ICON DÜZELTME: İkonu bir div içine alıp boyutlandırma sınıfları ekliyoruz */}
+          <div className="text-[#121517] flex items-center justify-center w-6 h-6">
+            {" "}
+            {/* w-6 ve h-6 = 24px */}
+            {icon}
+          </div>
           {isSidebarOpen && (
             <p className="text-[#121517] text-sm font-medium leading-normal whitespace-nowrap">
               {title}
@@ -32,23 +354,17 @@ const SidebarDropdownItem = ({ icon, title, children, isActive, onItemClick, isS
           )}
         </div>
         {isSidebarOpen && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            viewBox="0 0 256 256"
-            className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          // Heroicons'tan ChevronDownIcon veya ChevronRightIcon kullanabiliriz
+          <div
+            className={`text-gray-500 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
           >
-            <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,45.66,90.34L128,172.68l82.34-82.34A8,8,0,0,1,213.66,101.66Z"></path>
-          </svg>
+            {isOpen ? ChevronLeftIcon : ChevronRightIcon} {/* Açıkken sol, kapalıyken sağ ok */}
+          </div>
         )}
       </div>
-      {isOpen && isSidebarOpen && (
-        <div className="pl-8 py-1">
-          {children}
-        </div>
-      )}
+      {isOpen && isSidebarOpen && <div className="pl-8 py-1">{children}</div>}
     </div>
   );
 };
@@ -61,12 +377,15 @@ const SidebarItem = ({ icon, title, isActive, onItemClick, isSidebarOpen }) => {
     rounded-xl
     transition-colors duration-200
     cursor-pointer
-    ${isActive ? 'bg-[#f1f3f4]' : 'hover:bg-gray-200'}
+    ${isActive ? "bg-[#f1f3f4]" : "hover:bg-gray-200"}
   `;
 
   return (
     <a href="#" className={itemClasses} onClick={() => onItemClick(title)}>
-      <div className="text-[#121517] flex items-center justify-center" style={{ width: '24px', height: '24px' }}>
+      {/* ICON DÜZELTME: inline style yerine Tailwind sınıfları kullanıyoruz */}
+      <div className="text-[#121517] flex items-center justify-center w-6 h-6">
+        {" "}
+        {/* w-6 ve h-6 = 24px */}
         {icon}
       </div>
       {isSidebarOpen && (
@@ -78,7 +397,6 @@ const SidebarItem = ({ icon, title, isActive, onItemClick, isSidebarOpen }) => {
   );
 };
 
-
 // SidebarSubItem bileşeni (Dropdown alt öğeleri için)
 const SidebarSubItem = ({ icon, title, isSidebarOpen }) => {
   return (
@@ -86,7 +404,10 @@ const SidebarSubItem = ({ icon, title, isSidebarOpen }) => {
       href="#"
       className="flex items-center gap-3 py-2 px-4 rounded-md transition-colors duration-200 hover:bg-gray-200"
     >
-      <div className="text-[#121517] flex items-center justify-center" style={{ width: '24px', height: '24px' }}>
+      {/* ICON DÜZELTME: inline style yerine Tailwind sınıfları kullanıyoruz */}
+      <div className="text-[#121517] flex items-center justify-center w-6 h-6">
+        {" "}
+        {/* w-6 ve h-6 = 24px */}
         {icon}
       </div>
       {isSidebarOpen && (
@@ -100,7 +421,7 @@ const SidebarSubItem = ({ icon, title, isSidebarOpen }) => {
 
 // Ana Sidebar bileşeni
 const Sidebar = () => {
-  const [activeItem, setActiveItem] = useState('Giriş İşlemleri'); // Varsayılan aktif öğe güncellendi
+  const [activeItem, setActiveItem] = useState("Giriş İşlemleri");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleItemClick = (title) => {
@@ -116,105 +437,77 @@ const Sidebar = () => {
       className={`
         flex flex-col h-full bg-white shadow-sm
         transition-all duration-300 ease-in-out
-        ${isSidebarOpen ? 'w-80 p-4' : 'w-20 items-center p-2'}
+        ${isSidebarOpen ? "w-80 p-4" : "w-20 items-center p-2"}
       `}
-      style={{ overflowX: 'hidden' }}
+      style={{ overflowX: "hidden" }}
     >
       <div className="flex h-full flex-col gap-1 pb-4">
         {/* Giriş İşlemleri */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M160,16A80.07,80.07,0,0,0,83.91,120.78L26.34,178.34A8,8,0,0,0,24,184v40a8,8,0,0,0,8,8H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A80,80,0,1,0,160,16Zm0,144a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A64,64,0,1,1,160,160Zm32-84a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path>
-            </svg>
-          }
+          icon={UserCircleIcon} // Heroicon kullanıldı
           title="Giriş İşlemleri"
-          isActive={activeItem === 'Giriş İşlemleri'}
+          isActive={activeItem === "Giriş İşlemleri"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,128a48,48,0,1,1,48-48A48,48,0,0,1,128,128Zm0-80a32,32,0,1,0,32,32A32,32,0,0,0,128,48Zm0,144c-6.84,0-64,13.75-64,40v8a8,8,0,0,0,16,0v-8c0-15.16,40.16-24,48-24s48,8.84,48,24v8a8,8,0,0,0,16,0v-8C192,185.75,134.84,192,128,192Z"></path>
-              </svg>
-            }
+            icon={UserCircleIcon} // Heroicon kullanıldı
             title="Profil Ayarları"
             isSidebarOpen={isSidebarOpen}
           />
-
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,128a48,48,0,1,1,48-48A48,48,0,0,1,128,128Zm0-80a32,32,0,1,0,32,32A32,32,0,0,0,128,48Zm0,144c-6.84,0-64,13.75-64,40v8a8,8,0,0,0,16,0v-8c0-15.16,40.16-24,48-24s48,8.84,48,24v8a8,8,0,0,0,16,0v-8C192,185.75,134.84,192,128,192Z"></path>
-              </svg>
-            }
-            title="Profil Ayarları"
+            icon={KeyIcon} // Heroicon kullanıldı
+            title="Şifre Değiştir"
             isSidebarOpen={isSidebarOpen}
           />
-          
-          {/* Giriş İşlemleri altında artık alt öğe yok */}
+          <SidebarSubItem
+            icon={PlusCircleIcon} // Heroicon kullanıldı
+            title="Yeni Kullanıcı"
+            isSidebarOpen={isSidebarOpen}
+          />
+          <SidebarSubItem
+            icon={UsersIcon} // Heroicon kullanıldı
+            title="Kullanıcıları Yönet"
+            isSidebarOpen={isSidebarOpen}
+          />
         </SidebarDropdownItem>
 
         {/* Hesap Yönetilmesi (Yeni dropdown sekmesi) */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136Zm-57.87,58.85a8,8,0,0,1-12.26,10.3C165.75,181.19,138.09,168,108,168s-57.75,13.19-77.87,37.15a8,8,0,0,1-12.25-10.3c14.94-17.78,33.52-30.41,54.17-37.17a68,68,0,1,1,71.9,0C164.6,164.44,183.18,177.07,198.13,194.85ZM108,152a52,52,0,1,0-52-52A52.06,52.06,0,0,0,108,152Z"></path>
-            </svg>
-          }
+          icon={UserPlusIcon} // Heroicon kullanıldı
           title="Hesap Yönetilmesi"
-          isActive={activeItem === 'Hesap Yönetilmesi'}
+          isActive={activeItem === "Hesap Yönetilmesi"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,128a48,48,0,1,1,48-48A48,48,0,0,1,128,128Zm0-80a32,32,0,1,0,32,32A32,32,0,0,0,128,48Zm0,144c-6.84,0-64,13.75-64,40v8a8,8,0,0,0,16,0v-8c0-15.16,40.16-24,48-24s48,8.84,48,24v8a8,8,0,0,0,16,0v-8C192,185.75,134.84,192,128,192Z"></path>
-              </svg>
-            }
-            title="Profil Ayarları"
+            icon={UserCircleIcon} // Heroicon kullanıldı
+            title="Müşteri Hesapları"
             isSidebarOpen={isSidebarOpen}
           />
+          {/* Diğer alt öğeler buraya eklenebilir */}
         </SidebarDropdownItem>
 
         {/* AssetHQ */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8,144H40V64H216ZM96,96a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,96Zm48,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h24A8,8,0,0,1,144,96Zm48,0a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h24A8,8,0,0,1,192,96Zm-96,40a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,136Zm48,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h24A8,8,0,0,1,144,136Zm48,0a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h24A8,8,0,0,1,192,136Z"></path>
-            </svg>
-          }
+          icon={RectangleStackIcon} // Heroicon kullanıldı
           title="AssetHQ"
-          isActive={activeItem === 'AssetHQ'}
+          isActive={activeItem === "AssetHQ"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm10.34-118.34a8,8,0,0,0-11.32,0L96,140.68l-15.66-15.66a8,8,0,0,0-11.32,11.32l21.33,21.34a8,8,0,0,0,11.32,0L148.34,106.34A8,8,0,0,0,138.34,97.66Z"></path>
-              </svg>
-            }
+            icon={HomeIcon} // Heroicon kullanıldı
             title="Overview"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-              </svg>
-            }
+            icon={MagnifyingGlassIcon} // Heroicon kullanıldı
             title="Upload Assets"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172.42,72.84l-64,32a8.05,8.05,0,0,0-3.58,3.58l-32,64A8,8,0,0,0,80,184a8.1,8.1,0,0,0,3.58-.84l64-32a8.05,8.05,0,0,0,3.58-3.58l32-64a8,8,0,0,0-10.74-10.74ZM138,138,97.89,158.11,118,118l40.15-20.07Z"></path>
-              </svg>
-            }
+            icon={TagIcon} // Heroicon kullanıldı
             title="Manage Assets"
             isSidebarOpen={isSidebarOpen}
           />
@@ -222,40 +515,24 @@ const Sidebar = () => {
 
         {/* NewsHQ */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,48H32A16,16,0,0,0,16,64V200a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8,144H40V64H216ZM96,96a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,96Zm48,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h24A8,8,0,0,1,144,96Zm48,0a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h24A8,8,0,0,1,192,96Zm-96,40a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,136Zm48,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h24A8,8,0,0,1,144,136Zm48,0a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h24A8,8,0,0,1,192,136Z"></path>
-            </svg>
-          }
+          icon={NewspaperIcon} // Heroicon kullanıldı
           title="NewsHQ"
-          isActive={activeItem === 'NewsHQ'}
+          isActive={activeItem === "NewsHQ"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M224,128a96,96,0,0,1-192,0c0-1.89.08-3.75.19-5.61l43.7-21.85a8,8,0,0,1,8.08,1.83,80.12,80.12,0,0,0,80.08,0,8,8,0,0,1,8.08-1.83l43.7,21.85C223.92,124.25,224,126.11,224,128ZM128,24a8,8,0,0,0-8,8V64a8,8,0,0,0,16,0V32A8,8,0,0,0,128,24ZM208,80a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V88A8,8,0,0,0,208,80ZM48,80a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V88A8,8,0,0,0,48,80ZM128,200a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V208A8,8,0,0,0,128,200Z"></path>
-              </svg>
-            }
+            icon={Squares2X2Icon} // Heroicon kullanıldı
             title="Latest News"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4.7,175.3a8,8,0,0,1-1.6-11l16.14-35.88a8,8,0,0,1,11-1.6l35.88,16.14a8,8,0,0,1-1.6,11l-16.14,35.88A8,8,0,0,1,123.3,199.3ZM189.47,159.25l-22.19-9.94L183,115.15l22.19,9.94Zm-46.7-10.23L153.27,139a8,8,0,0,1-1.6-11l16.14-35.88a8,8,0,0,1,11-1.6l35.88,16.14a8,8,0,0,1-1.6,11l-16.14,35.88A8,8,0,0,1,179.3,149.02ZM59.28,136.73,81.47,146.67,72.53,168.86,50.34,158.92Zm9.94-22.19,22.19,9.94L73,153.27a8,8,0,0,1-11,1.6L26.13,138.73a8,8,0,0,1,1.6-11l16.14-35.88a8,8,0,0,1,11,1.6Z"></path>
-              </svg>
-            }
+            icon={TagIcon} // Heroicon kullanıldı
             title="News Categories"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136Zm-57.87,58.85a8,8,0,0,1-12.26,10.3C165.75,181.19,138.09,168,108,168s-57.75,13.19-77.87,37.15a8,8,0,0,1-12.25-10.3c14.94-17.78,33.52-30.41,54.17-37.17a68,68,0,1,1,71.9,0C164.6,164.44,183.18,177.07,198.13,194.85ZM108,152a52,52,0,1,0-52-52A52.06,52.06,0,0,0,108,152Z"></path>
-              </svg>
-            }
+            icon={UsersIcon} // Heroicon kullanıldı
             title="Authors"
             isSidebarOpen={isSidebarOpen}
           />
@@ -263,31 +540,19 @@ const Sidebar = () => {
 
         {/* Breaking News */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,48H32A16,16,0,0,0,16,64V200a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8,144H40V64H216ZM184,80a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H176A8,8,0,0,1,184,80ZM184,120a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H176A8,8,0,0,1,184,120Zm-40,40a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16h64A8,8,0,0,1,144,160Z"></path>
-            </svg>
-          }
+          icon={ExclamationCircleIcon} // Heroicon kullanıldı
           title="Breaking News"
-          isActive={activeItem === 'Breaking News'}
+          isActive={activeItem === "Breaking News"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm10.34-118.34a8,8,0,0,0-11.32,0L96,140.68l-15.66-15.66a8,8,0,0,0-11.32,11.32l21.33,21.34a8,8,0,0,0,11.32,0L148.34,106.34A8,8,0,0,0,138.34,97.66Z"></path>
-              </svg>
-            }
+            icon={BellAlertIcon} // Heroicon kullanıldı
             title="Create Alert"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-              </svg>
-            }
+            icon={MagnifyingGlassIcon} // Heroicon kullanıldı
             title="Manage Alerts"
             isSidebarOpen={isSidebarOpen}
           />
@@ -295,31 +560,19 @@ const Sidebar = () => {
 
         {/* Translated Content */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4.7,175.3a8,8,0,0,1-1.6-11l16.14-35.88a8,8,0,0,1,11-1.6l35.88,16.14a8,8,0,0,1-1.6,11l-16.14,35.88A8,8,0,0,1,123.3,199.3ZM189.47,159.25l-22.19-9.94L183,115.15l22.19,9.94Zm-46.7-10.23L153.27,139a8,8,0,0,1-1.6-11l16.14-35.88a8,8,0,0,1,11-1.6l35.88,16.14a8,8,0,0,1-1.6,11l-16.14,35.88A8,8,0,0,1,179.3,149.02ZM59.28,136.73,81.47,146.67,72.53,168.86,50.34,158.92Zm9.94-22.19,22.19,9.94L73,153.27a8,8,0,0,1-11,1.6L26.13,138.73a8,8,0,0,1,1.6-11l16.14-35.88a8,8,0,0,1,11,1.6Z"></path>
-            </svg>
-          }
+          icon={LanguageIcon} // Heroicon kullanıldı
           title="Translated Content"
-          isActive={activeItem === 'Translated Content'}
+          isActive={activeItem === "Translated Content"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm10.34-118.34a8,8,0,0,0-11.32,0L96,140.68l-15.66-15.66a8,8,0,0,0-11.32,11.32l21.33,21.34a8,8,0,0,0,11.32,0L148.34,106.34A8,8,0,0,0,138.34,97.66Z"></path>
-              </svg>
-            }
+            icon={HomeIcon} // Heroicon kullanıldı (Örnek)
             title="Translation Requests"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-              </svg>
-            }
+            icon={LanguageIcon} // Heroicon kullanıldı
             title="Language Management"
             isSidebarOpen={isSidebarOpen}
           />
@@ -327,31 +580,19 @@ const Sidebar = () => {
 
         {/* Radio Playlists */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8,144H40V64H216ZM80,96a8,8,0,0,1-8,8H48a8,8,0,0,1,0-16H72A8,8,0,0,1,80,96Zm96,0a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h24A8,8,0,0,1,176,96Zm-96,48a8,8,0,0,1-8,8H48a8,8,0,0,1,0-16H72A8,8,0,0,1,80,144Zm96,0a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h24A8,8,0,0,1,176,144Z"></path>
-            </svg>
-          }
+          icon={RadioIcon} // Heroicon kullanıldı
           title="Radio Playlists"
-          isActive={activeItem === 'Radio Playlists'}
+          isActive={activeItem === "Radio Playlists"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm10.34-118.34a8,8,0,0,0-11.32,0L96,140.68l-15.66-15.66a8,8,0,0,0-11.32,11.32l21.33,21.34a8,8,0,0,0,11.32,0L148.34,106.34A8,8,0,0,0,138.34,97.66Z"></path>
-              </svg>
-            }
+            icon={PlusCircleIcon} // Heroicon kullanıldı
             title="Create Playlist"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-              </svg>
-            }
+            icon={RectangleStackIcon} // Heroicon kullanıldı (Örnek)
             title="Edit Playlists"
             isSidebarOpen={isSidebarOpen}
           />
@@ -359,31 +600,19 @@ const Sidebar = () => {
 
         {/* TV Shows */}
         <SidebarDropdownItem
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8,144H40V64H216ZM96,80v64a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Zm64,0v64a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z"></path>
-            </svg>
-          }
+          icon={TvIcon} // Heroicon kullanıldı
           title="TV Shows"
-          isActive={activeItem === 'TV Shows'}
+          isActive={activeItem === "TV Shows"}
           onItemClick={handleItemClick}
           isSidebarOpen={isSidebarOpen}
         >
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm10.34-118.34a8,8,0,0,0-11.32,0L96,140.68l-15.66-15.66a8,8,0,0,0-11.32,11.32l21.33,21.34a8,8,0,0,0,11.32,0L148.34,106.34A8,8,0,0,0,138.34,97.66Z"></path>
-              </svg>
-            }
+            icon={PlayCircleIcon} // Heroicon kullanıldı
             title="New Episodes"
             isSidebarOpen={isSidebarOpen}
           />
           <SidebarSubItem
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-              </svg>
-            }
+            icon={RectangleStackIcon} // Heroicon kullanıldı (Örnek)
             title="Series Management"
             isSidebarOpen={isSidebarOpen}
           />
@@ -399,22 +628,15 @@ const Sidebar = () => {
               rounded-xl
               transition-colors duration-200
               cursor-pointer
-              ${isSidebarOpen ? 'hover:bg-gray-200' : ''}
-              w-full ${isSidebarOpen ? 'justify-start' : 'justify-center'}
+              ${isSidebarOpen ? "hover:bg-gray-200" : ""}
+              w-full ${isSidebarOpen ? "justify-start" : "justify-center"}
               bg-white
             `}
             aria-label="Toggle Sidebar"
           >
             <div className="text-[#121517]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-              >
-                <path d="M224,128a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM32,64H216a8,8,0,0,0,0-16H32a8,8,0,0,0,0,16Zm184,80H32a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
-              </svg>
+              {isSidebarOpen ? ChevronLeftIcon : ChevronRightIcon}{" "}
+              {/* Sidebar açıkken sol ok, kapalıyken sağ ok */}
             </div>
             {isSidebarOpen && (
               <span className="text-[#121517] text-sm font-medium leading-normal whitespace-nowrap">
