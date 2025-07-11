@@ -59,7 +59,7 @@ const MainLayout = ({ children }) => {
                             flex flex-col items-center justify-center
                         ">
                             <h2 className="text-xl font-semibold text-[#121517] mb-4 leading-tight">
-                                Daha fazla yardıma mı ihtiyacınız var?
+                                Need more help?
                             </h2>
                             <button
                                 id="contactUsButton"
@@ -75,7 +75,7 @@ const MainLayout = ({ children }) => {
                                     w-full
                                 "
                             >
-                                Bize Ulaşın
+                                Contact Us
                             </button>
                         </div>
                     </div>

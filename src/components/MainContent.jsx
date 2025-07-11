@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 import TopicCard from './TopicCard';
 import { allDynamicContent } from '../data/contentData';
 
 const MainContent = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Verileri kategoriye göre filtreleyelim
   const popularTopics = allDynamicContent.filter(item => item.category === 'popular-topics');
@@ -12,10 +12,7 @@ const MainContent = () => {
   const exploringPlatformItems = allDynamicContent.filter(item => item.category === 'exploring-platform');
   const basicAssistanceItems = allDynamicContent.filter(item => item.category === 'basic-assistance');
 
-  // "Bize Ulaşın" butonuna tıklama işlevi
-  const handleContactClick = () => {
-    navigate('/support');
-  };
+
 
   return (
     <div className="layout-content-container flex flex-col flex-1 p-8 bg-gray-50">
@@ -51,28 +48,7 @@ const MainContent = () => {
       </div>
 
       {/* "Daha fazla yardıma mı ihtiyacınız var?" Bölümü */}
-      <div className="w-full flex justify-center py-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold text-[#121517] mb-5">
-            Daha fazla yardıma mı ihtiyacınız var?
-          </h2>
-          <button
-            onClick={handleContactClick}
-            className="
-              bg-[#121517] text-white
-              py-3 px-6
-              rounded-lg
-              text-base font-medium
-              cursor-pointer
-              border-none
-              transition-colors duration-300
-              hover:bg-gray-700
-            "
-          >
-            Bize Ulaşın
-          </button>
-        </div>
-      </div>
+
 
       <br />
 

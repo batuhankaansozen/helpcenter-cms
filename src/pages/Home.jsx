@@ -15,14 +15,14 @@ const Home = () => {
   return (
     <div className="flex-1 p-8"> {/* Bu div artık sadece Home içeriğini kapsıyor, layoutu değil */}
       <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-[#121517] mb-8">
-        Merhaba, size nasıl yardımcı olabiliriz?
+        How can we help you?
       </h1>
 
       {/* Arama Çubuğu (Placeholder) */}
       <div className="relative mb-12">
         <input
           type="text"
-          placeholder="Arama..."
+          placeholder="Search help articles..."
           className="w-full p-4 pl-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#007bff] text-lg"
         />
         <svg
