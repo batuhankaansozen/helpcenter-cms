@@ -64,7 +64,7 @@ To build helpcenter-cms from the source and install dependencies:
 Run the project with:
 
 
-    ```bash
+  ```bash
     npm start
 
 
