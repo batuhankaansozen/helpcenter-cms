@@ -1,13 +1,6 @@
-// src/components/Sidebar.jsx
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom"; // NavLink'i ekledim, rota tabanlı aktif durum için
-
-// contentData'dan allDynamicContent ve sidebarMenuConfig'i import edin
+import { NavLink, useLocation } from "react-router-dom";
 import { allDynamicContent, sidebarMenuConfig } from "../data/contentData";
-
-// Heroicons'tan import etmek yerine doğrudan SVG'leri kullanacağız.
-// NOT: Tüm ikonları contentData.jsx'e taşımak daha mantıklıdır.
-// Ancak buradaki genel ikonları (Chevron gibi) burada tutabiliriz.
 
 const ChevronLeftIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -21,16 +14,11 @@ const ChevronRightIcon = (
   </svg>
 );
 
-// SidebarDropdownItem bileşeni
-const SidebarDropdownItem = ({
-  icon,
-  title,
-  children,
-  isActive,
-  onItemClick,
-  isSidebarOpen,
-}) => {
-  const [isOpen, setIsOpen] = useState(isActive || false);
+// Slug oluşturma fonksiyonu
+
+// Sidebar'daki dropdown başlıkları
+const SidebarDropdownItem = ({ icon, title, children, onItemClick, isSidebarOpen, categoryIsActive }) => {
+  const [isOpen, setIsOpen] = useState(categoryIsActive || false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -45,7 +33,7 @@ const SidebarDropdownItem = ({
     rounded-xl
     transition-colors duration-200
     cursor-pointer
-    ${isActive ? "bg-[#f1f3f4]" : "hover:bg-gray-200"}
+    ${categoryIsActive ? "bg-[#f1f3f4]" : "hover:bg-gray-200"}
   `;
 
   return (
@@ -62,12 +50,8 @@ const SidebarDropdownItem = ({
           )}
         </div>
         {isSidebarOpen && (
-          <div
-            className={`text-gray-500 transition-transform duration-200 ${
-              isOpen ? "rotate-180" : "" // Sağ ok için, açıldığında aşağı dönmesi daha mantıklı olabilir
-            }`}
-          >
-            {isOpen ? ChevronLeftIcon : ChevronRightIcon} {/* Açıkken sol, kapalıyken sağ ok */}
+          <div className={`text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
+            {isOpen ? ChevronLeftIcon : ChevronRightIcon}
           </div>
         )}
       </div>
@@ -76,16 +60,18 @@ const SidebarDropdownItem = ({
   );
 };
 
-// SidebarSubItem bileşeni (NavLink ile routing için)
-const SidebarSubItem = ({ icon, title, to, isSidebarOpen, onClick }) => {
+// Sidebar içeriğindeki alt başlıklar
+const SidebarSubItem = ({ icon, title, to, isSidebarOpen }) => {
+  const location = useLocation();
+  const isActive = `${location.pathname}${location.hash}` === to;
+
   return (
     <NavLink
       to={to}
-      className={({ isActive }) =>
-        `flex items-center gap-3 py-2 px-4 rounded-md transition-colors duration-200
-         ${isActive ? "bg-blue-100 text-blue-800" : "hover:bg-gray-200 text-[#121517]"}`
-      }
-      onClick={onClick} // Mobil görünümde sidebar'ı kapatmak için kullanılabilir
+      className={`
+        flex items-center gap-3 py-2 px-4 rounded-md transition-colors duration-200
+        ${isActive ? "bg-blue-100 text-blue-800" : "hover:bg-gray-200 text-[#121517]"}
+      `}
     >
       <div className="flex items-center justify-center w-6 h-6">
         {icon}
@@ -99,13 +85,10 @@ const SidebarSubItem = ({ icon, title, to, isSidebarOpen, onClick }) => {
   );
 };
 
-// Ana Sidebar bileşeni
+// Ana Sidebar component'i
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  // Sayfa yüklendiğinde veya rota değiştiğinde aktif öğeyi belirlemek için
-  // useEffect veya useParams kullanabilirsiniz. Şimdilik basitleştirilmiş bir örnek.
-  // Gerçek bir uygulamada, mevcut URL'ye göre `activeItem`'ı ayarlamanız gerekir.
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -121,39 +104,39 @@ const Sidebar = () => {
       style={{ overflowX: "hidden" }}
     >
       <div className="flex h-full flex-col gap-1 pb-4">
-        {sidebarMenuConfig.map((category) => (
-          <SidebarDropdownItem
-            key={category.title} // Benzersiz bir key olması önemli
-            icon={category.icon}
-            title={category.title}
-            // isActive durumunu, alt öğelerden herhangi biri aktifse true yapmak gerekebilir
-            // Bunu NavLink'in `isActive` prop'u ile otomatik yöneteceğiz.
-            // Bu yüzden `isActive` prop'unu şimdilik kaldırabiliriz veya daha karmaşık bir mantık ekleyebiliriz.
-            // Örneğin: isActive={category.items.some(item => window.location.pathname.includes(item.id))}
-            isSidebarOpen={isSidebarOpen}
-          >
-            {category.items.map((item) => {
-              // contentData'dan ilgili öğeyi bul
-              const contentDataItem = allDynamicContent.find(
-                (c) => c.id === item.id
-              );
+        {sidebarMenuConfig.map((category) => {
+          const categoryIsActive = category.items.some(item => {
+            const itemPath = `/${item.id}${item.anchor || ""}`;
+            return `${location.pathname}${location.hash}` === itemPath;
+          });
 
-              // Eğer contentDataItem bulunamazsa ve ikon sidebarMenuConfig'de doğrudan tanımlanmışsa onu kullan
-              const itemIcon = contentDataItem?.icon || item.icon; // Eğer contentData'da ikon varsa onu, yoksa sidebarMenuConfig'deki ikonu kullan
+          return (
+            <SidebarDropdownItem
+              key={category.title}
+              icon={category.icon}
+              title={category.title}
+              isSidebarOpen={isSidebarOpen}
+              categoryIsActive={categoryIsActive}
+            >
+              {category.items.map((item) => {
+                const contentDataItem = allDynamicContent.find(c => c.id === item.id);
+                const itemIcon = contentDataItem?.icon || item.icon;
 
-              return (
-                <SidebarSubItem
-                  key={item.id}
-                  icon={itemIcon}
-                  title={item.title}
-                  to={`/help/${item.id}`} // URL yapınıza göre ayarlayın
-                  isSidebarOpen={isSidebarOpen}
-                  // onClick={() => { /* isteğe bağlı olarak sidebar'ı kapat */ }}
-                />
-              );
-            })}
-          </SidebarDropdownItem>
-        ))}
+                const to = `/${item.id}${item.anchor || ""}`;
+
+                return (
+                  <SidebarSubItem
+                    key={`${item.id}${item.anchor || ""}`}
+                    icon={itemIcon}
+                    title={item.title}
+                    to={to}
+                    isSidebarOpen={isSidebarOpen}
+                  />
+                );
+              })}
+            </SidebarDropdownItem>
+          );
+        })}
 
         {/* Menüyü Kapat butonu */}
         <div className="mt-auto py-2">
@@ -175,7 +158,7 @@ const Sidebar = () => {
               {isSidebarOpen ? ChevronLeftIcon : ChevronRightIcon}
             </div>
             {isSidebarOpen && (
-              <span className="text-[#121517] text-sm font-medium leading-normal whitespace-nowrap">
+              <span className="text-sm font-medium leading-normal whitespace-nowrap">
                 Menüyü Kapat
               </span>
             )}
