@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { allDynamicContent } from '../data/contentData.jsx';
+import { allDynamicContent } from "../data/allDynamicContent";
 
 function createIdFromText(text) {
   return text

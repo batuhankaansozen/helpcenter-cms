@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React from 'react';
-import { allDynamicContent } from '../data/contentData'; // contentData'yı import ediyoruz
+import { allDynamicContent } from "../data/allDynamicContent";
+// import { sidebarMenuConfig } from "../data/sidebarMenuConfig";
 import { Link } from 'react-router-dom'; // Link'i import ediyoruz
 
 const Home = () => {

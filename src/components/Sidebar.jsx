@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { allDynamicContent, sidebarMenuConfig } from "../data/contentData";
+import { allDynamicContent } from "../data/allDynamicContent";
+import { sidebarMenuConfig } from "../data/sidebarMenuConfig";
 
 const ChevronLeftIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
