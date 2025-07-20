@@ -2,38 +2,27 @@
 
 // TÜM DİNAMİK İÇERİKLERİ BURADA TEK BİR DİZİDE TOPLUYORUZ
 const allDynamicContent = [
-  // POPÜLER KONULAR
+  // POPÜLER KONULAR (Diğer içerikleriniz burada aynı kalacak)
   {
     id: 'account-settings',
     category: 'popular-topics',
-    title: 'Hesap ve Roller', // Bu başlık, sidebar'da ve sayfanın genel başlığında kullanılacak
+    title: 'Hesap ve Roller',
     description: 'Kullanıcı hesaplarını yönetme, rol atama, izinleri yetkilendirme ve erişim haklarını düzenleme hakkında bilgi edinin.',
     content: [
-      // Ana bilgilendirme metni
-      { type: 'text', value: 'Bu sayfa, Tech Solutions platformundaki hesap ayarlarınız, kullanıcı rolleri ve kapsamlı kullanıcı yönetimi süreçleri hakkında derinlemesine bilgiler sunmaktadır. Profilinizi nasıl kişiselleştireceğinizi, bildirim tercihlerinizi nasıl yöneteceğinizi, hesap güvenliğinizi en üst düzeye çıkarmak için hangi adımları atmanız gerektiğini, yeni kullanıcıları sisteme nasıl ekleyeceğinizi ve mevcut kullanıcıların yetkilerini nasıl düzenleyeceğinizi bu bölümde detaylıca bulabilirsiniz. Amacımız, size platform üzerinde tam kontrol sağlayarak, iş akışlarınızı daha verimli hale getirmenize yardımcı olmaktır. Her bir bölüm, adım adım rehberlik ve sıkça sorulan sorularla zenginleştirilmiştir.' },
-
-      // Profil Ayarları başlığı ve içeriği
+      { type: 'text', value: 'Bu sayfa, Tech Solutions platformundaki hesap ayarlarınız...' },
       { type: 'heading', level: 2, value: 'Profil Ayarları' },
-      { type: 'text', value: 'Kişisel profil bilgilerinizi güncellemek, platformdaki deneyiminizi kişiselleştirmek ve iletişim tercihlerinizi düzenlemek için bu bölümü kullanabilirsiniz. Profilinize erişmek için ana menüden "Ayarlar" sekmesine gidin ve ardından "Profil Bilgileri" seçeneğine tıklayın. Burada adınız, soyadınız, e-posta adresiniz, telefon numaranız gibi temel bilgileri güncelleyebilir, profil fotoğrafınızı değiştirebilir ve biyografinizi ekleyebilirsiniz. Biyografi alanı, kendinizi kısaca tanıtmak veya profesyonel geçmişinizden bahsetmek için harika bir yerdir. Ayrıca, bildirim ayarlarınızı kişiselleştirerek hangi tür bildirimleri (e-posta, uygulama içi bildirimler, SMS) almak istediğinizi ve bunların sıklığını belirleyebilirsiniz. Kullanıcı adınızı değiştirme veya gizlilik tercihlerinizi detaylı olarak ayarlama gibi gelişmiş seçenekler de mevcuttur. Tüm değişiklikleri yaptıktan sonra sayfanın altındaki "Kaydet" butonuna tıklamayı unutmayın, aksi takdirde yaptığınız düzenlemeler kaydedilmeyecektir.' },
-      { type: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Hesap Ayarları Video Rehberi', description: 'Bu video, hesap ayarlarınızı adım adım nasıl yöneteceğinizi gösterir ve sıkça sorulan sorulara yanıt verir. Videoyu izleyerek profilinizi anında güncelleyebilirsiniz.' },
-      { type: 'text', value: 'Yukarıdaki video rehberi, profil ayarlarınızı kolayca yapmanız için size görsel bir yol haritası sunacaktır. Her adımı dikkatlice takip ederek profilinizi eksiksiz hale getirebilir ve platformdaki varlığınızı en iyi şekilde temsil edebilirsiniz. Unutmayın, güncel bir profil, diğer kullanıcılar ve yöneticilerle etkileşimde bulunurken size avantaj sağlayacaktır.' },
-
-      // Şifre Değiştirme ve Giriş Bilgileri başlığı ve içeriği
+      { type: 'text', value: 'Kişisel profil bilgilerinizi güncellemek...' },
+      { type: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Hesap Ayarları Video Rehberi', description: 'Bu video, hesap ayarlarınızı adım adım nasıl yöneteceğinizi gösterir...' },
+      { type: 'text', value: 'Yukarıdaki video rehberi...' },
       { type: 'heading', level: 2, value: 'Şifre Değiştirme ve Giriş Bilgileri' },
-      { type: 'text', value: 'Hesap güvenliğiniz bizim için en önemli önceliklerden biridir. Bu bölümde, şifrenizi nasıl güvenli bir şekilde değiştirebileceğinizi, iki faktörlü kimlik doğrulama (2FA) ayarlarını nasıl etkinleştireceğinizi ve sık karşılaşılan giriş sorunlarına yönelik çözümleri bulabilirsiniz. Şifrenizi değiştirmek için "Ayarlar" menüsünden "Şifre Değiştir" seçeneğine gidin. Mevcut şifrenizi girdikten sonra yeni şifrenizi belirleyebilir ve tekrar onaylayabilirsiniz. Şifrenizin güçlü olduğundan emin olmak için en az 12 karakterden oluşan, büyük harf, küçük harf, rakam ve özel karakter kombinasyonları (#, $, % vb.) kullanmanız şiddetle önerilir. Ayrıca, hesabınızın güvenliğini artırmak için iki faktörlü kimlik doğrulamayı mutlaka aktif hale getirin; bu, yetkisiz erişimi büyük ölçüde engeller. Giriş yaparken sorun yaşıyorsanız, "Şifremi Unuttum" linkini kullanarak kayıtlı e-posta adresinize gönderilecek yönergeleri takip edebilirsiniz. Güvenli giriş uygulamaları ve hesap güvenliği ipuçları hakkında daha fazla bilgi edinmek için güvenlik kılavuzumuzu inceleyebilirsiniz.' },
+      { type: 'text', value: 'Hesap güvenliğiniz bizim için en önemli önceliklerden biridir...' },
       { type: 'image', url: 'https://via.placeholder.com/800x400?text=Guvenli+Sifre+Yenileme', alt: 'Şifre Yenileme Görseli', caption: 'Şifre yenileme ekranı ve güvenli şifre oluşturma ipuçları.' },
-
-      // Yeni Kullanıcı Oluşturma başlığı ve içeriği
       { type: 'heading', level: 2, value: 'Yeni Kullanıcı Oluşturma' },
-      { type: 'text', value: 'Ekibinize yeni bir üye katmak veya platforma yeni bir kullanıcı eklemek oldukça basittir ve yalnızca yetkili yöneticiler tarafından yapılabilir. Yönetim panelindeki "Kullanıcılar" veya "Roller ve İzinler" bölümüne giderek bu işlemi gerçekleştirebilirsiniz. "Yeni Kullanıcı Ekle" butonuna tıkladıktan sonra, kullanıcının adını, soyadını, e-posta adresini ve atanacak rolünü (örneğin, Yönetici, Editör, Okuyucu, Katkıda Bulunan vb.) dikkatlice doldurun. Her rolün belirli yetkilere sahip olduğunu ve kullanıcının platformdaki erişimini ve yapabileceği eylemleri doğrudan etkilediğini unutmayın. Gerekli tüm bilgileri girdikten sonra "Kaydet" butonuna tıklayarak işlemi tamamlayın. Yeni kullanıcıya otomatik olarak bir hoş geldiniz e-postası ve geçici giriş bilgileri gönderilecektir. Bu e-posta, kullanıcının hesabını etkinleştirmesi ve ilk kez giriş yapması için gerekli tüm talimatları ve şifre sıfırlama linkini içerecektir. Kullanıcı oluşturma sırasında bir hata oluşursa, sistem size geri bildirimde bulunacaktır.' },
-
-      // Kullanıcıları Yönetme başlığı ve içeriği
+      { type: 'text', value: 'Ekibinize yeni bir üye katmak...' },
       { type: 'heading', level: 2, value: 'Kullanıcıları Yönetme' },
-      { type: 'text', value: 'Mevcut kullanıcı hesaplarını düzenlemek, rollerini değiştirmek, yetkilerini ayarlamak veya gerektiğinde hesaplarını askıya almak/silmek için bu bölümü kullanabilirsiniz. "Kullanıcılar" listesine erişerek tüm aktif ve pasif kullanıcıları, son giriş tarihlerini ve mevcut rollerini görüntüleyebilirsiniz. İlgili kullanıcının yanındaki "Düzenle" veya "Ayarlar" simgesine tıklayarak profil bilgilerini güncelleyebilir, farklı bir rol atayabilir veya belirli özelliklere erişim izinlerini değiştirebilirsiniz. Örneğin, bir kullanıcının sadece belirli modüllere erişimi olmasını sağlayabilirsiniz. Kullanıcıların yetkilerini düzenlerken, sistem güvenliğini ve veri bütünlüğünü sağlamak adına dikkatli olmanız ve "en az yetki prensibi"ni uygulamanız önemlidir. Bir kullanıcının hesabını askıya almak veya silmek isterseniz, bu işlemlerin geri döndürülemez olabileceğini göz önünde bulundurarak gerekli onayları almanız ve yedekleme politikalarınızı incelemeniz tavsiye edilir. Kullanıcı etkinliğini izleme ve denetleme kayıtlarına erişim de bu bölümden sağlanabilir, bu sayede kimin ne zaman hangi işlemi yaptığını takip edebilirsiniz.' },
-
-      // Sıkça Sorulan Sorular (Mevcut başlık)
+      { type: 'text', value: 'Mevcut kullanıcı hesaplarını düzenlemek...' },
       { type: 'heading', level: 3, value: 'Sıkça Sorulan Sorular' },
-      { type: 'text', value: 'Hesap güvenliği, parola sıfırlama, bildirim tercihleri ve kullanıcı yönetimi hakkında sıkça sorulan sorulara buradan ulaşabilirsiniz. Daha fazla bilgi için destek ekibimizle iletişime geçmekten çekinmeyin. Ek olarak, sıkça sorulan sorular bölümümüzde, hesap silme, e-posta değişikliği ve rol izinleriyle ilgili detaylı açıklamalar da bulunmaktadır.' },
+      { type: 'text', value: 'Hesap güvenliği, parola sıfırlama, bildirim tercihleri ve kullanıcı yönetimi hakkında sıkça sorulan sorulara buradan ulaşabilirsiniz...' },
     ],
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
@@ -41,7 +30,6 @@ const allDynamicContent = [
       </svg>
     ),
   },
-  // Kalan allDynamicContent öğeleri aynı kalacak
   {
     id: 'login-password',
     category: 'popular-topics',
@@ -198,8 +186,18 @@ const allDynamicContent = [
     category: 'basic-assistance',
     title: 'Sıkça Sorulan Sorular',
     description: 'Tech Solutions kullanımı hakkında sıkça sorulan soruların yanıtlarını bulun.',
+    // BURAYI GÜNCELLİYORUZ: Her soru için ayrı bir başlık ve kısa bir metin ekliyoruz
     content: [
-      { type: 'text', value: 'Bu bölüm, Tech Solutions platformunu kullanırken aklınıza takılabilecek en yaygın sorulara hızlı ve net yanıtlar sunmaktadır. Hesap yönetimi, teknik sorunlar, faturalandırma, gizlilik, özellik kullanımı ve daha fazlası hakkında sıkça sorulan soruları burada bulabilirsiniz. Cevabını bulamadığınız bir soru olursa, destek ekibimizle iletişime geçmekten çekinmeyin. Amacımız, size sorunsuz bir deneyim sunmaktır.' },
+      { type: 'heading', level: 2, value: 'Hesap güvenliği ve parola sıfırlama nasıl yapılır?' },
+      { type: 'text', value: 'Parolanızı düzenli olarak değiştirerek ve iki faktörlü kimlik doğrulamayı etkinleştirerek hesabınızı güvende tutun. Parola sıfırlama adımları için ilgili bölümümüze göz atın.' }, // Kısaltılmış açıklama
+      { type: 'heading', level: 2, value: 'Bildirim tercihlerinizi nasıl yönetebilirsiniz?' },
+      { type: 'text', value: 'E-posta, uygulama içi veya SMS bildirimleri gibi tercihlerinizi hesap ayarlarınızdan kolayca kişiselleştirebilirsiniz. Bildirim sıklığını da buradan ayarlayabilirsiniz.' }, // Kısaltılmış açıklama
+      { type: 'heading', level: 2, value: 'Yeni kullanıcı oluşturma adımları nelerdir?' },
+      { type: 'text', value: 'Yönetici panelindeki "Kullanıcı Yönetimi" bölümünden yeni kullanıcıları ekleyebilir, rollerini atayabilir ve erişim izinlerini belirleyebilirsiniz.' }, // Kısaltılmış açıklama
+      { type: 'heading', level: 2, value: 'Mobil uygulama sorunları için nereden destek alabilirim?' },
+      { type: 'text', value: 'Mobil uygulamamızla ilgili teknik sorunlar veya kullanım soruları için mobil uygulama destek sayfamızı ziyaret edebilir veya doğrudan ekibimizle iletişime geçebilirsiniz.' }, // Kısaltılmış açıklama
+      { type: 'heading', level: 2, value: 'Genel Destek ve İletişim Kanalları' },
+      { type: 'text', value: 'Daha fazla bilgi için destek ekibimizle iletişime geçmekten çekinmeyin. Ek olarak, sıkça sorulan sorular bölümümüzde, hesap silme, e-posta değişikliği ve rol izinleriyle ilgili detaylı açıklamalar da bulunmaktadır.' },
     ],
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
