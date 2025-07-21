@@ -1,5 +1,5 @@
 // src/pages/DynamicDetailPage.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { allDynamicContent } from '../data/allDynamicContent';
 import { faqData } from '../data/faqData';
@@ -19,7 +19,10 @@ const DynamicDetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const contentItem = slug === 'frequently-asked-questions' ? faqData : allDynamicContent.find(item => item.id === slug);
+  // Buradaki kritik değişiklik:
+  const contentItem = (slug === 'frequently-asked-questions' || (questionSlug && !slug)) 
+    ? faqData 
+    : allDynamicContent.find(item => item.id === slug);
 
   useEffect(() => {
     if (questionSlug) {
@@ -107,17 +110,31 @@ const DynamicDetailPage = () => {
     }
   };
 
-  if (slug === 'frequently-asked-questions') {
+  if (slug === 'frequently-asked-questions' || (questionSlug && !slug)) {
     if (questionSlug) {
-      console.log("DEBUG: URL'den gelen questionSlug:", questionSlug);
+      console.log("DEBUG-DynamicDetailPage: URL'den gelen questionSlug:", questionSlug, `(Uzunluk: ${questionSlug.length})`);
       const selectedFaqEntry = faqData.content.find(faqEntry => {
-        // BURADA DÜZELTME: Doğrudan faqEntry.slug ile karşılaştırıyoruz
-        console.log(`DEBUG: Karşılaştırılıyor: Data'dan gelen slug: "${faqEntry.slug}" vs URL'den gelen slug: "${questionSlug}"`);
+        if (!faqEntry.slug) {
+          console.warn(`DEBUG-DynamicDetailPage: faqEntry.slug tanımlı değil veya boş:`, faqEntry);
+          return false;
+        }
+        console.log(`DEBUG-DynamicDetailPage: Karşılaştırılıyor: Data'dan gelen slug: "${faqEntry.slug}" (Uzunluk: ${faqEntry.slug.length}) vs URL'den gelen slug: "${questionSlug}" (Uzunluk: ${questionSlug.length})`);
+        
+        // Karakter karakter karşılaştırma
+        if (faqEntry.slug.length !== questionSlug.length) {
+          console.log(`DEBUG-DynamicDetailPage: Uzunluklar farklı! Data: ${faqEntry.slug.length}, URL: ${questionSlug.length}`);
+        } else {
+          for (let i = 0; i < faqEntry.slug.length; i++) {
+            if (faqEntry.slug[i] !== questionSlug[i]) {
+              console.log(`DEBUG-DynamicDetailPage: Farklı karakter bulundu! Index: ${i}, Data: '${faqEntry.slug[i]}' (${faqEntry.slug.charCodeAt(i)}) vs URL: '${questionSlug[i]}' (${questionSlug.charCodeAt(i)})`);
+            }
+          }
+        }
         return faqEntry.slug === questionSlug;
       });
 
       if (!selectedFaqEntry) {
-        console.error("DEBUG: Hata: Eşleşen FAQ girişi bulunamadı.");
+        console.error("DEBUG-DynamicDetailPage: Hata: Eşleşen FAQ girişi bulunamadı.");
         return (
           <div className="p-8 text-center text-gray-700">
             Aradığınız sıkça sorulan soru bulunamadı.

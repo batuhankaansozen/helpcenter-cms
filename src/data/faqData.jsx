@@ -24,6 +24,7 @@ const faqData = {
     },
     {
       question: 'Bildirim tercihlerinizi nasıl yönetebilirsiniz?',
+      id: 'notification-preferences-management', // Bu id'nin sidebarMenuConfig'deki ile eşleşmesi KRİTİK
       slug: 'bildirim-tercihlerinizi-nasil-yonetebilirsiniz', // Bu slug'ın URL ile aynı olması KRİTİK
       details: [
         { type: 'text', value: 'Platformdaki bildirim tercihlerinizi hesap ayarlarınızdan kolayca yönetebilirsiniz. Hangi tür bildirimleri (e-posta, uygulama içi bildirimler, SMS) almak istediğinizi ve bunların sıklığını belirleyebilirsiniz.' },
@@ -36,6 +37,7 @@ const faqData = {
     },
     {
       question: 'Yeni kullanıcı oluşturma adımları nelerdir?',
+      id: 'new-user-creation-steps', // Bu id'nin sidebarMenuConfig'deki ile eşleşmesi KRİTİK
       slug: 'yeni-kullanici-olusturma-adimlari-nelerdir', // Bu slug'ın URL ile aynı olması KRİTİK
       details: [
         { type: 'text', value: 'Ekibinize yeni bir üye katmak veya platforma yeni bir kullanıcı eklemek oldukça basittir ve yalnızca yetkili yöneticiler tarafından yapılabilir. Aşağıdaki adımları takip ederek yeni bir kullanıcı oluşturabilirsiniz:' },
@@ -53,6 +55,7 @@ const faqData = {
     },
     {
       question: 'Mobil uygulama sorunları için nereden destek alabilirim?',
+      id: 'mobile-app-support', // Bu id'nin sidebarMenuConfig'deki ile eşleşmesi KRİTİK
       slug: 'mobil-uygulama-sorunlari-icin-nereden-destek-alabilirim', // Bu slug'ın URL ile aynı olması KRİTİK
       details: [
         { type: 'text', value: 'Mobil uygulamamızla ilgili herhangi bir sorun yaşıyorsanız, doğru yerdesiniz! Size hızlı ve etkili destek sağlamak için çeşitli kanallarımız mevcuttur.' },
@@ -79,6 +82,7 @@ const faqData = {
     },
     {
       question: 'Genel Destek ve İletişim Kanalları',
+      id: 'general-support-and-contact-channels', // Bu id'nin sidebarMenuConfig'deki ile eşleşmesi KRİTİK
       slug: 'genel-destek-ve-iletisim-kanallari', // Bu slug'ın URL ile aynı olması KRİTİK
       details: [
         { type: 'text', value: 'Tech Solutions ile ilgili herhangi bir konuda kişiselleştirilmiş yardıma ihtiyacınız olursa, destek ekibimiz size yardımcı olmaktan memnuniyet duyacaktır. Çeşitli iletişim kanallarımız mevcuttur:' },
