@@ -2,27 +2,39 @@
 
 // TÜM DİNAMİK İÇERİKLERİ BURADA TEK BİR DİZİDE TOPLUYORUZ
 const allDynamicContent = [
-  // POPÜLER KONULAR (Diğer içerikleriniz burada aynı kalacak)
+  // POPÜLER KONULAR
   {
     id: 'account-settings',
     category: 'popular-topics',
-    title: 'Hesap ve Roller',
+    slug: 'hesap-ve-roller',
+    title: 'Hesap ve Roller', // Bu başlık, sidebar'da ve sayfanın genel başlığında kullanılacak
     description: 'Kullanıcı hesaplarını yönetme, rol atama, izinleri yetkilendirme ve erişim haklarını düzenleme hakkında bilgi edinin.',
     content: [
-      { type: 'text', value: 'Bu sayfa, Tech Solutions platformundaki hesap ayarlarınız...' },
+      // Ana bilgilendirme metni
+      { type: 'text', value: 'Bu sayfa, Tech Solutions platformundaki hesap ayarlarınız, kullanıcı rolleri ve kapsamlı kullanıcı yönetimi süreçleri hakkında derinlemesine bilgiler sunmaktadır. Profilinizi nasıl kişiselleştireceğinizi, bildirim tercihlerinizi nasıl yöneteceğinizi, hesap güvenliğinizi en üst düzeye çıkarmak için hangi adımları atmanız gerektiğini, yeni kullanıcıları sisteme nasıl ekleyeceğinizi ve mevcut kullanıcıların yetkilerini nasıl düzenleyeceğinizi bu bölümde detaylıca bulabilirsiniz. Amacımız, size platform üzerinde tam kontrol sağlayarak, iş akışlarınızı daha verimli hale getirmenize yardımcı olmaktır. Her bir bölüm, adım adım rehberlik ve sıkça sorulan sorularla zenginleştirilmiştir.' },
+
+      // Profil Ayarları başlığı ve içeriği
       { type: 'heading', level: 2, value: 'Profil Ayarları' },
-      { type: 'text', value: 'Kişisel profil bilgilerinizi güncellemek...' },
-      { type: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Hesap Ayarları Video Rehberi', description: 'Bu video, hesap ayarlarınızı adım adım nasıl yöneteceğinizi gösterir...' },
-      { type: 'text', value: 'Yukarıdaki video rehberi...' },
+      { type: 'text', value: 'Kişisel profil bilgilerinizi güncellemek, platformdaki deneyiminizi kişiselleştirmek ve iletişim tercihlerinizi düzenlemek için bu bölümü kullanabilirsiniz. Profilinize erişmek için ana menüden "Ayarlar" sekmesine gidin ve ardından "Profil Bilgileri" seçeneğine tıklayın. Burada adınız, soyadınız, e-posta adresiniz, telefon numaranız gibi temel bilgileri güncelleyebilir, profil fotoğrafınızı değiştirebilir ve biyografinizi ekleyebilirsiniz. Biyografi alanı, kendinizi kısaca tanıtmak veya profesyonel geçmişinizden bahsetmek için harika bir yerdir. Ayrıca, bildirim ayarlarınızı kişiselleştirerek hangi tür bildirimleri (e-posta, uygulama içi bildirimler, SMS) almak istediğinizi ve bunların sıklığını belirleyebilirsiniz. Kullanıcı adınızı değiştirme veya gizlilik tercihlerinizi detaylı olarak ayarlama gibi gelişmiş seçenekler de mevcuttur. Tüm değişiklikleri yaptıktan sonra sayfanın altındaki "Kaydet" butonuna tıklamayı unutmayın, aksi takdirde yaptığınız düzenlemeler kaydedilmeyecektir.' },
+      { type: 'video', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Hesap Ayarları Video Rehberi', description: 'Bu video, hesap ayarlarınızı adım adım nasıl yöneteceğinizi gösterir ve sıkça sorulan sorulara yanıt verir. Videoyu izleyerek profilinizi anında güncelleyebilirsiniz.' },
+      { type: 'text', value: 'Yukarıdaki video rehberi, profil ayarlarınızı kolayca yapmanız için size görsel bir yol haritası sunacaktır. Her adımı dikkatlice takip ederek profilinizi eksiksiz hale getirebilir ve platformdaki varlığınızı en iyi şekilde temsil edebilirsiniz. Unutmayın, güncel bir profil, diğer kullanıcılar ve yöneticilerle etkileşimde bulunurken size avantaj sağlayacaktır.' },
+
+      // Şifre Değiştirme ve Giriş Bilgileri başlığı ve içeriği
       { type: 'heading', level: 2, value: 'Şifre Değiştirme ve Giriş Bilgileri' },
-      { type: 'text', value: 'Hesap güvenliğiniz bizim için en önemli önceliklerden biridir...' },
+      { type: 'text', value: 'Hesap güvenliğiniz bizim için en önemli önceliklerden biridir. Bu bölümde, şifrenizi nasıl güvenli bir şekilde değiştirebileceğinizi, iki faktörlü kimlik doğrulama (2FA) ayarlarını nasıl etkinleştireceğinizi ve sık karşılaşılan giriş sorunlarına yönelik çözümleri bulabilirsiniz. Şifrenizi değiştirmek için "Ayarlar" menüsünden "Şifre Değiştir" seçeneğine gidin. Mevcut şifrenizi girdikten sonra yeni şifrenizi belirleyebilir ve tekrar onaylayabilirsiniz. Şifrenizin güçlü olduğundan emin olmak için en az 12 karakterden oluşan, büyük harf, küçük harf, rakam ve özel karakter kombinasyonları (#, $, % vb.) kullanmanız şiddetle önerilir. Ayrıca, hesabınızın güvenliğini artırmak için iki faktörlü kimlik doğrulamayı mutlaka aktif hale getirin; bu, yetkisiz erişimi büyük ölçüde engeller. Giriş yaparken sorun yaşıyorsanız, "Şifremi Unuttum" linkini kullanarak kayıtlı e-posta adresinize gönderilecek yönergeleri takip edebilirsiniz. Güvenli giriş uygulamaları ve hesap güvenliği ipuçları hakkında daha fazla bilgi edinmek için güvenlik kılavuzumuzu inceleyebilirsiniz.' },
       { type: 'image', url: 'https://via.placeholder.com/800x400?text=Guvenli+Sifre+Yenileme', alt: 'Şifre Yenileme Görseli', caption: 'Şifre yenileme ekranı ve güvenli şifre oluşturma ipuçları.' },
+
+      // Yeni Kullanıcı Oluşturma başlığı ve içeriği
       { type: 'heading', level: 2, value: 'Yeni Kullanıcı Oluşturma' },
-      { type: 'text', value: 'Ekibinize yeni bir üye katmak...' },
+      { type: 'text', value: 'Ekibinize yeni bir üye katmak veya platforma yeni bir kullanıcı eklemek oldukça basittir ve yalnızca yetkili yöneticiler tarafından yapılabilir. Yönetim panelindeki "Kullanıcılar" veya "Roller ve İzinler" bölümüne giderek bu işlemi gerçekleştirebilirsiniz. "Yeni Kullanıcı Ekle" butonuna tıkladıktan sonra, kullanıcının adını, soyadını, e-posta adresini ve atanacak rolünü (örneğin, Yönetici, Editör, Okuyucu, Katkıda Bulunan vb.) dikkatlice doldurun. Her rolün belirli yetkilere sahip olduğunu ve kullanıcının platformdaki erişimini ve yapabileceği eylemleri doğrudan etkilediğini unutmayın. Gerekli tüm bilgileri girdikten sonra "Kaydet" butonuna tıklayarak işlemi tamamlayın. Yeni kullanıcıya otomatik olarak bir hoş geldiniz e-postası ve geçici giriş bilgileri gönderilecektir. Bu e-posta, kullanıcının hesabını etkinleştirmesi ve ilk kez giriş yapması için gerekli tüm talimatları ve şifre sıfırlama linkini içerecektir. Kullanıcı oluşturma sırasında bir hata oluşursa, sistem size geri bildirimde bulunacaktır.' },
+
+      // Kullanıcıları Yönetme başlığı ve içeriği
       { type: 'heading', level: 2, value: 'Kullanıcıları Yönetme' },
-      { type: 'text', value: 'Mevcut kullanıcı hesaplarını düzenlemek...' },
+      { type: 'text', value: 'Mevcut kullanıcı hesaplarını düzenlemek, rollerini değiştirmek, yetkilerini ayarlamak veya gerektiğinde hesaplarını askıya almak/silmek için bu bölümü kullanabilirsiniz. "Kullanıcılar" listesine erişerek tüm aktif ve pasif kullanıcıları, son giriş tarihlerini ve mevcut rollerini görüntüleyebilirsiniz. İlgili kullanıcının yanındaki "Düzenle" veya "Ayarlar" simgesine tıklayarak profil bilgilerini güncelleyebilir, farklı bir rol atayabilir veya belirli özelliklere erişim izinlerini değiştirebilirsiniz. Örneğin, bir kullanıcının sadece belirli modüllere erişimi olmasını sağlayabilirsiniz. Kullanıcıların yetkilerini düzenlerken, sistem güvenliğini ve veri bütünlüğünü sağlamak adına dikkatli olmanız ve "en az yetki prensibi"ni uygulamanız önemlidir. Bir kullanıcının hesabını askıya almak veya silmek isterseniz, bu işlemlerin geri döndürülemez olabileceğini göz önünde bulundurarak gerekli onayları almanız ve yedekleme politikalarınızı incelemeniz tavsiye edilir. Kullanıcı etkinliğini izleme ve denetleme kayıtlarına erişim de bu bölümden sağlanabilir, bu sayede kimin ne zaman hangi işlemi yaptığını takip edebilirsiniz.' },
+
+      // Sıkça Sorulan Sorular (Mevcut başlık) - Bu kısım artık faqData.jsx'ten gelecek
       { type: 'heading', level: 3, value: 'Sıkça Sorulan Sorular' },
-      { type: 'text', value: 'Hesap güvenliği, parola sıfırlama, bildirim tercihleri ve kullanıcı yönetimi hakkında sıkça sorulan sorulara buradan ulaşabilirsiniz...' },
+      { type: 'text', value: 'Hesap güvenliği, parola sıfırlama, bildirim tercihleri ve kullanıcı yönetimi hakkında sıkça sorulan sorulara buradan ulaşabilirsiniz. Daha fazla bilgi için destek ekibimizle iletişime geçmekten çekinmeyin. Ek olarak, sıkça sorulan sorular bölümümüzde, hesap silme, e-posta değişikliği ve rol izinleriyle ilgili detaylı açıklamalar da bulunmaktadır.' },
     ],
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
@@ -33,6 +45,7 @@ const allDynamicContent = [
   {
     id: 'login-password',
     category: 'popular-topics',
+    slug: 'giris-ve-sifre',
     title: 'Giriş ve Şifre',
     description: 'Şifre sıfırlama, kullanıcı adı sorunları, güvenli giriş adımları ve şifre değiştirme işlemleri hakkında bilgi alın.',
     content: [], // İçerik artık yukarıdaki account-settings içinde olduğu için burayı boş bıraktık.
@@ -45,6 +58,7 @@ const allDynamicContent = [
   {
     id: 'privacy-security-settings',
     category: 'popular-topics',
+    slug: 'gizlilik-ve-guvenlik',
     title: 'Gizlilik ve Güvenlik Ayarları',
     description: 'Hesabınızın ve içeriğinizin gizliliğini, veri korumasını ve ek güvenlik önlemlerini nasıl yöneteceğinizi öğrenin.',
     content: [
@@ -59,6 +73,7 @@ const allDynamicContent = [
   {
     id: 'newshq-usage',
     category: 'popular-topics',
+    slug: 'newshq-kullanim',
     title: 'NewsHQ Kullanımı',
     description: 'Canlı haber kaynaklarından içerik çekme, haber düzenleme, yayınlama ve içerik yönetimi süreçleri hakkında bilgi alın.',
     content: [
@@ -79,6 +94,7 @@ const allDynamicContent = [
   {
     id: 'assethq-media-management',
     category: 'popular-topics',
+    slug: 'assethq-medya-yonetimi',
     title: 'AssetHQ ile Medya Yönetimi',
     description: 'Fotoğraf ve video yükleme, düzenleme, etiketleme ve yönetme hakkında bilgi edinin. Dosya formatları ve boyutlandırma ipuçları da dahildir.',
     content: [
@@ -93,6 +109,7 @@ const allDynamicContent = [
   {
     id: 'vpn-connection-access',
     category: 'popular-topics',
+    slug: 'vpn-baglanti-ve-erisim',
     title: 'VPN Bağlantısı ve Erişimi',
     description: 'Şirket ağına güvenli bir VPN bağlantısı kurma, erişim sorunları ve uzaktan çalışma ayarlarıyla ilgili destek alın.',
     content: [
@@ -108,6 +125,7 @@ const allDynamicContent = [
   {
     id: 'cms-user-guide',
     category: 'popular-topics',
+    slug: 'cms-kullanim-kilavuzu',
     title: 'CMS Kullanım Kılavuzu',
     description: 'CMS sisteminin genel özelliklerini, temel kullanımını ve ana modüllerini adım adım öğrenmek için kapsamlı bir rehberdir.',
     content: [
@@ -123,6 +141,7 @@ const allDynamicContent = [
   {
     id: 'mobile-app-support',
     category: 'popular-topics',
+    slug: 'mobil-uygulama-destegi',
     title: 'Mobil Uygulama Desteği',
     description: 'Mobil cihazlarınızdan CMS\'e erişim, mobil uygulama kullanımı ve karşılaşılan sorunlar için yardım alın.',
     content: [
@@ -138,6 +157,7 @@ const allDynamicContent = [
   {
     id: 'system-requirements-compatibility',
     category: 'popular-topics',
+    slug: 'sistem-gereksinimleri-ve-uyumluluk',
     title: 'Sistem Gereksinimleri ve Uyumluluk',
     description: 'CMS sistemini kullanmak için gereken sistem gereksinimleri ve farklı cihazlar ve tarayıcılarla uyumluluğu hakkında bilgi edinin.',
     content: [
@@ -154,6 +174,7 @@ const allDynamicContent = [
   {
     id: 'navigating-the-platform',
     category: 'exploring-platform',
+    slug: 'platformda-gezinti',
     title: 'Platformda Gezinme',
     description: 'Tech Solutions\'ın ana özelliklerini ve işlevlerini öğrenin.',
     content: [
@@ -168,6 +189,7 @@ const allDynamicContent = [
   {
     id: 'using-the-search-feature',
     category: 'exploring-platform',
+    slug: 'arama-ozelligini-kullanma',
     title: 'Arama Özelliğini Kullanma',
     description: 'Arama özelliğimizi kullanarak belirli bilgileri veya kaynakları nasıl bulacağınızı keşfedin.',
     content: [
@@ -181,33 +203,11 @@ const allDynamicContent = [
   },
 
   // BASIC ASSISTANCE
-  {
-    id: 'frequently-asked-questions',
-    category: 'basic-assistance',
-    title: 'Sıkça Sorulan Sorular',
-    description: 'Tech Solutions kullanımı hakkında sıkça sorulan soruların yanıtlarını bulun.',
-    // BURAYI GÜNCELLİYORUZ: Her soru için ayrı bir başlık ve kısa bir metin ekliyoruz
-    content: [
-      { type: 'heading', level: 2, value: 'Hesap güvenliği ve parola sıfırlama nasıl yapılır?' },
-      { type: 'text', value: 'Parolanızı düzenli olarak değiştirerek ve iki faktörlü kimlik doğrulamayı etkinleştirerek hesabınızı güvende tutun. Parola sıfırlama adımları için ilgili bölümümüze göz atın.' }, // Kısaltılmış açıklama
-      { type: 'heading', level: 2, value: 'Bildirim tercihlerinizi nasıl yönetebilirsiniz?' },
-      { type: 'text', value: 'E-posta, uygulama içi veya SMS bildirimleri gibi tercihlerinizi hesap ayarlarınızdan kolayca kişiselleştirebilirsiniz. Bildirim sıklığını da buradan ayarlayabilirsiniz.' }, // Kısaltılmış açıklama
-      { type: 'heading', level: 2, value: 'Yeni kullanıcı oluşturma adımları nelerdir?' },
-      { type: 'text', value: 'Yönetici panelindeki "Kullanıcı Yönetimi" bölümünden yeni kullanıcıları ekleyebilir, rollerini atayabilir ve erişim izinlerini belirleyebilirsiniz.' }, // Kısaltılmış açıklama
-      { type: 'heading', level: 2, value: 'Mobil uygulama sorunları için nereden destek alabilirim?' },
-      { type: 'text', value: 'Mobil uygulamamızla ilgili teknik sorunlar veya kullanım soruları için mobil uygulama destek sayfamızı ziyaret edebilir veya doğrudan ekibimizle iletişime geçebilirsiniz.' }, // Kısaltılmış açıklama
-      { type: 'heading', level: 2, value: 'Genel Destek ve İletişim Kanalları' },
-      { type: 'text', value: 'Daha fazla bilgi için destek ekibimizle iletişime geçmekten çekinmeyin. Ek olarak, sıkça sorulan sorular bölümümüzde, hesap silme, e-posta değişikliği ve rol izinleriyle ilgili detaylı açıklamalar da bulunmaktadır.' },
-    ],
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path>
-      </svg>
-    ),
-  },
+  // 'frequently-asked-questions' objesi buradan taşındı
   {
     id: 'contact-support',
     category: 'basic-assistance',
+    slug: 'destekle-iletisime-gecin',
     title: 'Destekle İletişime Geçin',
     description: 'Kişiselleştirilmiş yardım için destek ekibimizle iletişime geçin.',
     content: [
@@ -223,6 +223,7 @@ const allDynamicContent = [
   // Yeni Eklenen Sayfalar (HEADER linkleri için)
   {
     id: 'about',
+    slug: 'hakkimizda',
     category: 'header-links',
     title: 'Hakkımızda',
     description: 'Tech Solutions hakkında daha fazla bilgi edinin.',
@@ -234,6 +235,7 @@ const allDynamicContent = [
   {
     id: 'products',
     category: 'header-links',
+    slug: 'urunlerimiz',  
     title: 'Ürünlerimiz',
     description: 'Sunduğumuz çeşitli ürün ve hizmetleri keşfedin.',
     content: [
@@ -244,6 +246,7 @@ const allDynamicContent = [
   {
     id: 'community',
     category: 'header-links',
+    slug: 'toplulugumuz', 
     title: 'Topluluğumuz',
     description: 'Tech Solutions topluluğuna katılın ve diğer kullanıcılarla etkileşim kurun.',
     content: [
@@ -253,6 +256,7 @@ const allDynamicContent = [
   },
   {
     id: 'support',
+    slug: 'destek', 
     category: 'header-links',
     title: 'Destek',
     description: 'Yardıma mı ihtiyacınız var? Destek ekibimize ulaşın.',

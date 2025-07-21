@@ -1,9 +1,10 @@
 // src/pages/DynamicDetailPage.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { allDynamicContent } from '../data/allDynamicContent';
+import { faqData } from '../data/faqData';
 
-// Slugify function - Must be consistent across all files!
+// Slugify function - Still needed for other dynamic content and general slug generation if needed
 const slugify = (text) => {
   if (!text) return '';
   return text
@@ -14,42 +15,29 @@ const slugify = (text) => {
 };
 
 const DynamicDetailPage = () => {
-  // Get both the main slug and the optional questionSlug from the URL parameters
   const { slug, questionSlug } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Find the content item corresponding to the main slug (e.g., 'frequently-asked-questions')
-  const contentItem = allDynamicContent.find(item => item.id === slug);
-
-  // State to manage the open/closed status of FAQs (primarily for the general FAQ list page)
-  // This state is not directly used for dropdowns on the FAQ list page anymore,
-  // but kept for potential future use or consistency if hash-based opening is desired.
-  // (Removed unused openFaq state)
+  const contentItem = slug === 'frequently-asked-questions' ? faqData : allDynamicContent.find(item => item.id === slug);
 
   useEffect(() => {
-    // Scroll to the top when a new questionSlug is present (for single FAQ view)
     if (questionSlug) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (location.hash) {
-      // If there's a hash but no questionSlug (for general FAQ page with hash links)
       const idToScroll = location.hash.substring(1);
       const element = document.getElementById(idToScroll);
 
       if (element) {
-        // If it's the FAQ page, open the specific FAQ item (if using accordion)
-        // For this design, we don't open accordion, just scroll if hash exists
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } else {
-      // If no questionSlug and no hash, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [location.hash, slug, questionSlug]); // Depend on slug and questionSlug for re-evaluation
+  }, [location.hash, slug, questionSlug]);
 
-  // If content item is not found, display a message
   if (!contentItem) {
     return (
       <div className="p-8 text-center text-gray-700">
@@ -58,104 +46,6 @@ const DynamicDetailPage = () => {
     );
   }
 
-  // Special rendering for 'frequently-asked-questions' page
-  if (slug === 'frequently-asked-questions') {
-    const faqContentBlocks = [];
-    // Pair headings with their immediate text content to form Q&A pairs
-    for (let i = 0; i < contentItem.content.length; i++) {
-      if (contentItem.content[i].type === 'heading') {
-        const questionBlock = contentItem.content[i];
-        let answerBlock = null;
-        // Check if the next block exists and is of type 'text' to be its answer
-        if (i + 1 < contentItem.content.length && contentItem.content[i + 1].type === 'text') {
-          answerBlock = contentItem.content[i + 1];
-        }
-        faqContentBlocks.push({ question: questionBlock, answer: answerBlock });
-      }
-    }
-
-    // If a questionSlug is present in the URL, render only that specific FAQ
-    if (questionSlug) {
-      const selectedFaq = faqContentBlocks.find(faqPair => slugify(faqPair.question.value) === questionSlug);
-
-      // If the specific FAQ is not found, display an error and a back button
-      if (!selectedFaq) {
-        return (
-          <div className="p-8 text-center text-gray-700">
-            Aradığınız sıkça sorulan soru bulunamadı.
-            <button
-              onClick={() => navigate('/frequently-asked-questions')}
-              className="mt-4 bg-[#1877F2] hover:bg-[#1566D9] text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-            >
-              Tüm Sorulara Geri Dön
-            </button>
-          </div>
-        );
-      }
-
-      // Render the single FAQ question and its answer
-      return (
-        <div className="p-8 max-w-3xl mx-auto"> {/* Center content and limit width */}
-          <button
-            onClick={() => navigate('/frequently-asked-questions')}
-            className="mb-6 flex items-center text-[#1877F2] hover:underline"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mr-2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-            </svg>
-            Tüm Sorulara Geri Dön
-          </button>
-          <h1 className="text-3xl font-bold mb-4 text-gray-900">{selectedFaq.question.value}</h1>
-          {selectedFaq.answer && (
-            <p className="text-gray-700 leading-relaxed text-lg">
-              {selectedFaq.answer.value}
-            </p>
-          )}
-        </div>
-      );
-    }
-
-    // If no questionSlug, render the list of all FAQs (as per your latest screenshot)
-    return (
-      <div className="p-8">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900">{contentItem.title}</h1>
-        <p className="text-gray-600 mb-8">{contentItem.description}</p>
-
-        <div className="space-y-4 max-w-full"> {/* Genişlik ayarı: max-w-full */}
-          {faqContentBlocks.map((faqPair) => {
-            const questionText = faqPair.question.value;
-            const descriptionText = faqPair.answer ? faqPair.answer.value : ''; // Kısa açıklama için cevap metni
-            const questionId = slugify(questionText);
-
-            const navigateToQuestion = () => {
-              navigate(`/frequently-asked-questions/${questionId}`); // Navigate to the new detail page
-            };
-
-            return (
-              <div
-                key={questionId}
-                onClick={navigateToQuestion}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200" // Beyaz arka plan
-              >
-                <div className="flex justify-between items-center w-full text-left p-4 text-[#121517] font-semibold text-lg"> {/* Soru başlığı */}
-                  <span className="flex-1">{questionText}</span>
-                  {/* + ikonunu kaldırıyoruz */}
-                </div>
-                {/* Küçük detay yazısı */}
-                {descriptionText && (
-                  <div className="p-4 pt-0 text-gray-600 text-sm leading-relaxed line-clamp-2"> {/* İlk 2 satırı göster */}
-                    {descriptionText}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
-
-  // Default rendering for all other dynamic pages (unchanged)
   const renderContentBlock = (block, index) => {
     switch (block.type) {
       case 'text':
@@ -216,6 +106,86 @@ const DynamicDetailPage = () => {
         return null;
     }
   };
+
+  if (slug === 'frequently-asked-questions') {
+    if (questionSlug) {
+      console.log("DEBUG: URL'den gelen questionSlug:", questionSlug);
+      const selectedFaqEntry = faqData.content.find(faqEntry => {
+        // BURADA DÜZELTME: Doğrudan faqEntry.slug ile karşılaştırıyoruz
+        console.log(`DEBUG: Karşılaştırılıyor: Data'dan gelen slug: "${faqEntry.slug}" vs URL'den gelen slug: "${questionSlug}"`);
+        return faqEntry.slug === questionSlug;
+      });
+
+      if (!selectedFaqEntry) {
+        console.error("DEBUG: Hata: Eşleşen FAQ girişi bulunamadı.");
+        return (
+          <div className="p-8 text-center text-gray-700">
+            Aradığınız sıkça sorulan soru bulunamadı.
+            <button
+              onClick={() => navigate('/frequently-asked-questions')}
+              className="mt-4 bg-[#1877F2] hover:bg-[#1566D9] text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+            >
+              Tüm Sorulara Geri Dön
+            </button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="p-8 max-w-3xl mx-auto">
+          <button
+            onClick={() => navigate('/frequently-asked-questions')}
+            className="mb-6 flex items-center text-[#1877F2] hover:underline"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mr-2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Tüm Sorulara Geri Dön
+          </button>
+          <h1 className="text-3xl font-bold mb-4 text-gray-900">{selectedFaqEntry.question}</h1>
+          <div className="prose max-w-none">
+            {selectedFaqEntry.details.map((block, index) => renderContentBlock(block, index))}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="p-8">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">{contentItem.title}</h1>
+        <p className="text-gray-600 mb-8">{contentItem.description}</p>
+
+        <div className="space-y-4 max-w-full">
+          {contentItem.content.map((faqEntry) => {
+            const questionText = faqEntry.question;
+            const descriptionText = faqEntry.details.find(detail => detail.type === 'text')?.value || '';
+            const questionId = faqEntry.slug; // Doğrudan slug'ı kullanıyoruz
+
+            const navigateToQuestion = () => {
+              navigate(`/frequently-asked-questions/${questionId}`);
+            };
+
+            return (
+              <div
+                key={questionId}
+                onClick={navigateToQuestion}
+                className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200"
+              >
+                <div className="flex justify-between items-center w-full text-left p-4 text-[#121517] font-semibold text-lg">
+                  <span className="flex-1">{questionText}</span>
+                </div>
+                {descriptionText && (
+                  <div className="p-4 pt-0 text-gray-600 text-sm leading-relaxed line-clamp-2">
+                    {descriptionText}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
